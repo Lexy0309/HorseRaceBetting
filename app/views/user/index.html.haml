@@ -1,0 +1,69 @@
+.container.themed-content
+  .row
+    .col-lg-12
+      %h1 Terms confirmed users
+      %table#historyMatches.table.table-bordered.table-responsive
+        %thead
+          %tr
+            %th email
+            %th created at
+            %th last sign in at
+            %th state
+            %th first
+            %th last
+            %th manual
+            %th bookmakers
+            %th clicks
+            -#%th Membership
+            %th Subscription Plan
+        %tbody
+          -@users.each do |user|
+            %tr
+              %td=user.email
+              %td{'data-sort': user.created_at.strftime('%Y/%m/%d')}=user.created_at.strftime('%d/%m/%Y')
+              %td{'data-sort': user.last_sign_in_at.strftime('%Y/%m/%d')}=user.last_sign_in_at.strftime('%d/%m/%Y')
+              %td=user.state
+              %td=user.first_name
+              %td=user.last_name
+              %td=user.state_manual
+              %td=user.bookmakers.map(&:title).join(',')
+              %td="#{user.banner_click_count}/#{user.banner_click_count_special}"
+              -if false
+                %td
+                  =user.show_membership
+                  %br
+                  -if user.disabled_by_admin
+                    =link_to('Enable',disable_by_admin_user_path(user,reverse:1),method: :post)
+                  -else
+                    =link_to('Disable',disable_by_admin_user_path(user),method: :post)
+                  %br
+                  -if user.enabled_by_admin
+                    =link_to('Usual access',enable_by_admin_user_path(user,reverse:1),method: :post)
+                  -else
+                    =link_to('Endless access',enable_by_admin_user_path(user),method: :post)
+                  %br
+                  =link_to('Continue access',continue_membership_by_admin_user_path(user),method: :post)
+                  %br
+                  =link_to('Clear',clear_membership_by_admin_user_path(user),method: :post,:data => {:confirm => 'Are you sure?'})
+              %td
+                = plan = user.subscriptions.map{|s| s.plan.name }.join(", ")
+                = link_to "Subscription", '#SubscriptionModal', 'data-toggle' => 'modal', onclick: "$('#SubscriptionModal .modal-title span').html('#{user.email}');$('#user_email').val('#{user.email}')" if plan.blank?
+
+#SubscriptionModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title
+          Add Plan to
+          %span
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+      = form_tag free_subscription_plan_user_index_path do
+        .modal-body
+          %input#user_email{:name => "user_email", :type => "hidden"}/
+          .form-group
+            %label Select Plan
+            = select_tag "plan_id", options_from_collection_for_select(Plan.all, "id", "name"), class: 'form-control'
+        .modal-footer
+          %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close
+          %button.btn.btn-primary{:type => "submit"} Add Subscription Plan

@@ -1,0 +1,47 @@
+.container.themed-content-special
+  .row
+    .col-lg-12
+      %h1 Bets report
+      %table#historyMatches.table.table-bordered
+        %thead
+          %tr
+            %th Category
+            %th Count
+            %th Win
+            %th Perc
+            %th Spent
+            %th Reward
+        %tbody
+          -@result.each do |row|
+            %tr
+              %td=link_to(Bet.category_title(row[0]),category_bets_report_index_path(id:row[0]))
+              %td=row[1]
+              %td=row[2]
+              %td="#{row[1].to_i.zero? ? 0 : (row[2].to_f/row[1]*100).to_i}%"
+              %td="$#{row[3]}"
+              %td="$#{row[4]}"
+      %h3 Pick date to explore bets
+      .calendar-outer
+        #calendar-container{'data-min':@calendar_min,'data-max':@calendar_max}
+      -unless @quaddie.blank?
+        %h2 Quaddie details
+        %table.table.table-bordered#historyMatches
+          %thead
+            %tr
+              %th Bet ID
+              %th Date
+              %th Amount
+              %th Reward
+              %th Lower
+              %th Race
+              %th Details (Race No: Horse Numbers)
+            %tbody
+              -@quaddie.each do |row|
+                %tr
+                  %td=row[0]
+                  %td{'data-sort':row[1]}=row[7]
+                  %td="$#{row[2]}"
+                  %td="$#{row[3]}"
+                  %td=row[4]
+                  %td=link_to(row[5],race_path(row[5]),target:'_blank')
+                  %td=row[6]

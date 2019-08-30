@@ -1,0 +1,37 @@
+.container
+  .row
+    .col-lg-12
+      %h1=@trainer.title
+      %table.table.table-bordered
+        %tr
+          %th Winrate
+          %td=@trainer.winrate
+        %tr
+          %th Placerate
+          %td=@trainer.placerate
+        %tr
+          %th Best track
+          %td=@trainer.track.title
+        %tr
+          %th Best jockey
+          %td=link_to(@trainer.jockey.title,jockey_path(@trainer.jockey))
+        %tr
+          %th Best ditance
+          %td=@trainer.distance
+      -if @participates.any?
+        %table#historyMatches.table.table-bordered
+          %thead
+            %tr
+              %th Date
+              %th Race
+              %th Result
+              %th Horse
+              %th Jockey
+          %tbody
+            -@participates.each do |participate|
+              %tr
+                %td=participate.race.start_date
+                %td=link_to(participate.race.full_title,race_path(participate.race_id))
+                %td=participate.finished
+                %td=participate.horse.nil? ? '' : link_to(participate.horse.title,horse_path(participate.horse))
+                %td=participate.jockey.nil? ? '' : link_to(participate.jockey.title,jockey_path(participate.jockey))

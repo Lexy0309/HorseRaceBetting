@@ -1,0 +1,54 @@
+.themed-content
+  -[[@yesterday,'Yesterday'],[@tomorrow,'Tomorrow']].each do |day,title|
+    -unless day.nil?
+      %td=link_to(title,date_path(day))
+  -unless @data.nil?
+    %table{border:1}
+      %thead
+        %tr
+          %th Track
+          -@max_race_number.times do |i|
+            %th="R#{i+1}"
+      %tbody
+        -@tracks.each do |track|
+          %tr
+            %th=track.title
+            -@max_race_number.times do |i|
+              %td
+                -if @data[track.id].include?(i+1)
+                  -race = @data[track.id][i+1]
+                  =link_to(race.title,race_path(race))
+  -if @bets.any?
+    %h3 Selected bets
+    %table{border:1}
+      %thead
+        %tr
+          %th Type
+          %th Amount
+          %th Reward
+          %th Races
+          %th Horses
+      %tbody
+        -@bets.each do |bet|
+          %tr
+            %td=bet.category_title
+            %td="$#{bet.amount}"
+            %td="$#{bet.reward}"
+            %td
+              -bet.bet_races.sort_by{|bet_race| bet_race.race.race_number}.each_with_index do |bet_race,index|
+                =link_to(bet_race.race.short_title,race_path(bet_race.race_id))
+                -if index < (bet.bet_races.size-1)
+                  %br
+            %td
+              -bet.bet_races.sort_by{|bet_race| bet_race.race.race_number}.each_with_index do |bet_race,index|
+                =bet_race.bet_horses.sort_by{|bet_horse| [bet_horse.position,bet_horse.horse_number]}.map{|bet_horse| bet_horse.horse_number}.join(',')
+                -if index < (bet.bet_races.size-1)
+                  %br
+      %thead
+        %tr
+          %th Total
+          %th="$#{@bets.map{|x| x.amount}.inject{|sum,x| sum+x}}"
+          %th="$#{@bets.map{|x| x.reward}.inject{|sum,x| sum+x}}"
+          %th=@bets.size
+          %th
+

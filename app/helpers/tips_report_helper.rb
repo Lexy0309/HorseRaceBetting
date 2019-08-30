@@ -1,0 +1,2 @@
+module TipsReportHelper
+end

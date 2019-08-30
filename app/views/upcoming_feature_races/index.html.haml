@@ -1,0 +1,24 @@
+.container.themed-content-special
+  .row
+    .col-lg-12
+      %h1 Upcoming feature races
+      %table#historyMatches.table.table-bordered
+        %thead
+          %tr
+            %th Date
+            %th Venue
+            %th Distance
+            %th Prize
+            %th Group
+            %th Title
+            %th Race type
+        %tbody
+          -@group_races.each do |race|
+            %tr
+              %td=race.start_date
+              %td=race.venue
+              %td=race.distance
+              %td="$#{race.prize}"
+              %td=race.group_level
+              %td=race.title
+              %td=race.race_type_full

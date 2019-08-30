@@ -1,0 +1,138 @@
+.daily-btn {
+  padding-top: 20px;
+};
+
+.top-padded {
+  padding-top: 20px;
+};
+
+.daily-tip-row:hover {
+  color: black;
+  background-color: #98FFCC;
+  cursor: pointer;
+};
+
+.daily-tip-row-selected {
+  color: black;
+  background-color: #98FFCC;
+  cursor: pointer;
+};
+
+.dutch-odd-input {
+  text-align: right;
+}
+
+#dutchTotal {
+  text-align: right;
+};
+
+.dutch-odd-td {
+  text-align: center;
+};
+
+.dutch-result-td {
+  text-align: center;
+};
+
+.daily-raw-elem {
+  display: none;
+};
+
+#dutchBlock {
+  display: none;
+};
+
+#dutchClear {
+  float: right;
+};
+
+#dutchWarning {
+  padding: 5px;
+  display: none;
+};
+
+#dailyTipsBlock {
+  display: none;
+};
+
+.daily-tip-button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+};
+
+#dutchReturn {
+  width: 100px;
+};
+
+#dutchProfit {
+  width: 100px;
+};
+
+.race-row-header {
+  color: white;
+  background-color: #343a40;
+};
+
+.race-row-helper {
+  text-align:center;
+};
+
+.race-graph{
+  .progress{
+    position: relative;
+    margin: 4px auto;
+    text-align: center;
+    height: 50px;
+    background-color: transparent;
+    display: block;
+    width: 90px;
+  }
+  .barOverflow{
+    position: relative;
+    overflow: hidden;
+    width: 90px; height: 45px;
+    margin-bottom: -14px;
+  }
+  .bar{
+    position: absolute;
+    top: 0; left: 0;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 10px solid #cdf5d0;
+    border-bottom-color: #f3821e;
+    border-right-color: #f3821e;
+  }
+}
+
+.panel {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 4px;
+
+  .panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+  &.panel-default {
+    .panel-heading{
+      color: #333;
+      background-color: #f5f5f5;
+      border-color: #ddd;
+    }
+  }
+  .panel-body {
+    padding: 15px;
+  }
+}
+
+.progress-bar-success{
+  background-color: #28a745;
+}
+
+.flex-warp{
+  flex-wrap: wrap;
+}

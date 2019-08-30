@@ -1,0 +1,23 @@
+.container.themed-content
+  .row
+    .col-lg-12
+      -if @result.any?
+        %h3 Scorecard top selection summary by track
+        %table.table.table-bordered#historyMatches{border:1}
+          %thead
+            %tr
+              %th Track
+              %th ID
+              %th Races
+              %th Success
+              %th Perc
+          %tbody
+            -@result.each do |row|
+              %tr
+                %td=row[0]
+                %td=row[1]
+                %td=row[2]
+                %td=row[3]
+                %td{style: row[4].to_f >=0.23 ? 'font-weight:bold' : ''}=row[4]
+      -else
+        %h3 No scorecard total

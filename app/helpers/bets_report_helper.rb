@@ -1,0 +1,2 @@
+module BetsReportHelper
+end

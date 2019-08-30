@@ -1,0 +1,52 @@
+.container.themed-content
+  .row
+    .col-md-3
+    .col-md-6
+      .card
+        .card-body
+          %h1.card-title Account details
+          =form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
+            =devise_error_messages!
+            -if devise_mapping.confirmable? && resource.pending_reconfirmation?
+              %div
+                Currently waiting confirmation for:
+                =resource.unconfirmed_email
+            .form-group
+              .field
+                =f.label :first_name
+                %br
+                =f.text_field :first_name, class: 'form-control'
+            .form-group
+              .field
+                =f.label :last_name
+                %br
+                =f.text_field :last_name, class: 'form-control'
+            .form-group
+              .field
+                =f.label :state_manual, 'Select your state'
+                =f.select :state_manual, options_for_select(['']+User::STATES,current_user.state_manual), class: 'form-control'
+            %h6 Which bookmakers you are currently using?
+            =f.collection_check_boxes(:bookmaker_ids, Bookmaker.all, :id, :title) do |b|
+              .form-check
+                .field
+                  =b.check_box class: 'form-check-input'
+                  =b.label
+            %br
+            .form-check
+              .field
+                =f.check_box :terms_confirmed, class: 'form-check-input'
+                =f.label :terms_confirmed, 'I agree to the terms and I am at least 18 years of age'
+            %p
+              By using Betbuilder I accept
+              %a{href:terms_and_conditions_public_info_index_path,target:'_blank'} Terms and Conditions
+            .actions
+              =f.submit 'Enter', class: 'btn btn-secondary', style: 'width: 100%; font-size: 22px; font-weight: bold;'
+          -if false
+            %h6 Membership
+            .form-group
+              %input.form-control{value:current_user.show_membership,disabled:true}
+            .actions
+              =link_to('Process payment',process_payment_user_path(current_user),class:'btn btn-secondary',style: 'width: 100%; font-size: 22px; font-weight: bold;',method: :post)
+
+
+

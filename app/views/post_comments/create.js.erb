@@ -1,0 +1,6 @@
+<% if @post_comment.save %>
+  $(".post_comment").html("");
+  $(".post_comments_div_<%= @post_comment.post.id %>").html("<%= escape_javascript render(:partial => 'list', :locals => { :post => @post_comment.post }) %>");
+<% else %>
+  $(".post_comment_form").html("<%= escape_javascript render(:partial => 'form', :locals => { post_comment: @post_comment, post: @post_comment.post }) %>");
+<% end %>

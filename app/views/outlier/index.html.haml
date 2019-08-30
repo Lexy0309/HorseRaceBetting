@@ -1,0 +1,16 @@
+-if @result.any?
+  %h3 Outlier report. Race winners (1st) outlier items stats.
+  %table{border:1}
+    %thead
+      %tr
+        %th Track
+        %th Count
+        -19.times do |index|
+          %th=Race.outlier_fields[index+1]
+    %tbody
+      -@result.each do |row|
+        %tr
+          -row.each do |value|
+            %td=value
+-else
+  %h3 No data.

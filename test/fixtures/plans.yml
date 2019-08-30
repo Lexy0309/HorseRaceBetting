@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  payment_gateway_plan_identifier: MyString
+  name: MyString
+  price: 
+  interval: 1
+  interval_count: 1
+  status: 1
+  description: MyText
+
+two:
+  payment_gateway_plan_identifier: MyString
+  name: MyString
+  price: 
+  interval: 1
+  interval_count: 1
+  status: 1
+  description: MyText

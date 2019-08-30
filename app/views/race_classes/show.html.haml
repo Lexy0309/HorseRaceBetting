@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @race_class.title
+%p
+  %b Rank:
+  = @race_class.rank
+
+= link_to 'Edit', edit_race_class_path(@race_class)
+\|
+= link_to 'Back', race_classes_path

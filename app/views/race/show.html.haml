@@ -1,0 +1,190 @@
+.themed-content
+  %h1=@race.full_title
+  -if !@race.prev_race.zero? || !@race.next_race.zero?
+    %table
+      %tr
+        %td{style:'width:75px'}
+          -unless @race.prev_race.zero?
+            =link_to('Prev race',race_path(@race.prev_race))
+        %td{style:'width:75px'}
+          -unless @race.next_race.zero?
+            =link_to('Next race',race_path(@race.next_race))
+  %table
+    %tr
+      %td{style:'vertical-align:top'}
+        %table{border:1}
+          -@race.get_block.each do |k,v|
+            %tr
+              %th=k
+              %td=v
+      -if @race.horse_positions.any?
+        %td{style:'vertical-align:top'}
+          %table{border:1}
+            %thead
+              %tr
+                %th{colspan:2} Top horses
+              %tr
+                %th Rank
+                %th Horse
+            %tbody
+              -@race.top_horses.each do |hp|
+                %tr
+                  %td=hp.score_position
+                  %td="#{hp.horse_number}. #{hp.horse.title}"
+      -bets = @race.get_bet_block
+      -horse_positions = @race.participate_horse_positions
+      -unless bets.empty?
+        %td{style:'vertical-align:top'}
+          %table{border:1}
+            %thead
+              %tr
+                %th Bet
+                %th Numbers
+                %th Value
+            %tbody
+              -bets.each do |bet|
+                %tr
+                  %td=bet[0]
+                  %td=bet[1][:items]
+                  %td="$#{bet[1][:value].to_f}"
+      -unless @race.race_reward.nil?
+        %td{style:'vertical-align:top'}
+          %table{border:1}
+            %thead
+              %tr
+                %th Bet
+                %th $10 Tip pays
+            %tbody
+              -['win','place','quinella2','quinella3','trifecta','first_four','exacta','exacta4','running_double','daily_double','quaddie','early_quaddie'].each do |field|
+                %tr
+                  %td=field.titleize
+                  %td="$#{@race.race_reward.send(field)}"
+      -unless @race.race_pool.blank?
+        %td{style:'vertical-align:top'}
+          %table{border:1}
+            %thead
+              %tr
+                %th Bet
+                %th Pool
+            %tbody
+              -%w[win place quinella exacta duet trifecta first_four running_double daily_double early_quaddie quaddie big_6].each do |field|
+                -unless @race.race_pool.send(field).to_i.zero?
+                  %tr
+                    %td=field
+                    %td="$#{@race.race_pool.send(field)}"
+  -bets = @race.participate_bets
+  %button.outlier-toggle Toggle outlier
+  %table#pastRaces{border:1}
+    %tr
+      %th Horse
+      %th Jockey
+      %th Trainer
+      %th #
+      %th Barrier
+      %th Weigth
+      %th Age
+      %th Sex
+      %th Spell
+      %th History
+      %th 400
+      %th 800
+      %th Margin
+      %th Result
+      %th In Run
+      -score_fields = @race.score_fields_list
+      -Race.score_fields.each_with_index do |field,index|
+        %th.header_highlighter{class: score_fields.include?(index+1) ? 'active_score' : ''}=field
+      -Race.score_fields.each_with_index do |field,index|
+        %th="#{field}_raw"
+      %th.header_highlighter Total
+      %th.header_highlighter{'data-reverse': 1} Rank
+      %th.header_highlighter{'data-reverse': 1} Reordered
+      %th.header_highlighter ML total
+      %th.header_highlighter{'data-reverse': 1} ML Rank
+      %th Win
+      %th Place
+      %th Open
+      %th Hightest
+      %th Lowest
+      %th Current
+      %th Outlier score
+      %th Outlier count
+      -19.times do |index|
+        %th.outlier=Race.outlier_fields[index+1]
+      %th Sectional time
+      %th Prize money
+      %th Horse prize money
+      %th Open price
+      %th Fluctuation
+      %th Starting price
+    -positions = @race.positions
+    -fluctuations = @race.get_fluctuations
+    -@race.participates.includes(:horse,:jockey,:trainer).order("cast(nullif(finished,'') as int), horse_number").each do |p|
+      %tr
+        %td
+          -unless p.horse.blank?
+            =link_to(p.horse.title,horse_path(p.horse))
+            =p.horse_id
+        %td=p.jockey.nil? ? '' : link_to(p.jockey.title,jockey_path(p.jockey))
+        %td=p.trainer.nil? ? '' : link_to(p.trainer.title,trainer_path(p.trainer))
+        %td=p.horse_number
+        %td=p.barrier
+        %td=p.weight
+        %td=p.age
+        %td=p.sex
+        %td=p.spell
+        %td=p.show_history
+        %td=p.position_400
+        %td=p.position_800
+        %td=p.margin
+        %td=p.finished
+        %td=p.position_in_run
+        -score_count = 10
+        -score_count.times do |i|
+          %td
+            -if positions.include?(p.id)
+              =positions[p.id].send("score#{i+1}")
+        -score_count.times do |i|
+          %td
+            -if positions.include?(p.id)
+              =positions[p.id].send("score#{i+1}_raw")
+        %td
+          -if positions.include?(p.id)
+            =positions[p.id].score
+        %td
+          -if positions.include?(p.id)
+            =positions[p.id].score_position
+        %td
+          -if positions.include?(p.id)
+            =positions[p.id].score_position_reordered
+        %td
+          -if positions.include?(p.id)
+            =positions[p.id].ml_score
+        %td
+          -if positions.include?(p.id)
+            =positions[p.id].ml_rank
+        -if p.scratched.to_i.zero?
+          %td=bets[p.horse_number] ? bets[p.horse_number].fixed_odd_win : 0
+          %td=bets[p.horse_number] ? bets[p.horse_number].fixed_odd_place : 0
+          %td=fluctuations.include?(p.id) ? fluctuations[p.id].open_price : 0
+          %td=fluctuations.include?(p.id) ? fluctuations[p.id].highest_price : 0
+          %td=fluctuations.include?(p.id) ? fluctuations[p.id].lowest_price : 0
+          %td=fluctuations.include?(p.id) ? fluctuations[p.id].current_price : 0
+        -else
+          %td{colspan:6} SCRATCHED
+        -if horse_positions.include?(p.horse_number)
+          %td=horse_positions[p.horse_number].outlier_score
+          %td=horse_positions[p.horse_number].outlier_count
+        -else
+          %td
+          %td
+        -19.times do |index|
+          %td.outlier
+            -if horse_positions.include?(p.horse_number)
+              =horse_positions[p.horse_number].send("outlier#{index+1}")
+        %td=p.sectional_time
+        %td=p.prize_money
+        %td=p.horse_prize_money
+        %td=p.open_price
+        %td=p.fluctuation
+        %td=p.starting_price

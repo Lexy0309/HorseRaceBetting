@@ -1,0 +1,92 @@
+%html
+  %head
+    %title Betbuilder
+    %link{rel:'icon',type:'image/png',sizes:'32x32',href:image_path('favicon-32x32.png')}
+    =csrf_meta_tags
+    =stylesheet_link_tag 'application', media: 'all'
+    =javascript_include_tag 'application', 'https://js.stripe.com/v2/'
+    = tag :meta, name: "stripe-key", content: StripeEvent.signing_secret
+    =render partial: 'fragments/facebook'
+  %body.themed-background{'data-controller':controller_name,'data-action':action_name,'data-user-id':current_user.blank? ? 0 : current_user.id}
+    -if user_signed_in?
+      .container.themed-content
+        .row
+          .col-lg-12{style:'padding-left:0px;padding-right:0px;'}
+            .logo_outer
+              %img{src:image_path('logo5.png'),style:'height:100%'}
+            %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.inside-menu
+              =link_to('Betbuilder',root_path,class: 'navbar-brand')
+              %button.navbar-toggler.collapsed{type:'button','data-toggle':'collapse','data-target':'#navbarMainPage','aria-controls':'#navbarMainPage','aria-expanded':'false','aria-label':'Toggle navigation'}
+                %span.navbar-toggler-icon
+              .navbar-collapse.collapse#navbarMainPage
+                %ul.navbar-nav.mr-auto.flex-warp
+                  %li.nav-item=link_to('Home', root_path,class:'nav-link active')
+                  -if current_user.is_admin
+                    %li.nav-item.active.dropdown
+                      %a#navbarDropdown.nav-link.dropdown-toggle{href:'#',role:'button','data-toggle':'dropdown','aria-haspopup':true,'aria-expanded':false} Magic Ball
+                      .dropdown-menu{'aria-labelledby':'navbarDropdown'}
+                        %a.dropdown-item{href:magic_ball_index_path} User
+                        %a.dropdown-item{href:tool_magic_ball_index_path} Admin
+                  -else
+                    %li.nav-item=link_to('Magic Ball',magic_ball_index_path,class:'nav-link active')
+                  -if !current_user.blank? && current_user.is_admin
+                    %li.nav-item=link_to('Forum',posts_path,class:'nav-link active')
+                    %li.nav-item=link_to('Forecast',main_index_path,class:'nav-link active')
+                    %li.nav-item.active.dropdown
+                      %a#navbarDropdown.nav-link.dropdown-toggle{href:'#',role:'button','data-toggle':'dropdown','aria-haspopup':true,'aria-expanded':false} Reports
+                      .dropdown-menu{'aria-labelledby':'navbarDropdown'}
+                        %a.dropdown-item{href:score_report_index_path} Score report
+                        %a.dropdown-item{href:scorecard_index_path} Scorecards
+                        %a.dropdown-item{href:total_scorecard_index_path} Scorecards total
+                        %a.dropdown-item{href:graph_scorecard_index_path} Scorecards graph
+                        %a.dropdown-item{href:pool_index_path} Prize pool
+                        .dropdown-divider
+                        %a.dropdown-item{href:class_report_index_path} Class report
+                        %a.dropdown-item{href:class_sectional_index_path} Sectional report
+                        %a.dropdown-item{href:tips_report_index_path} Tips efficiency
+                        .dropdown-divider
+                        %a.dropdown-item{href:bets_report_index_path} Bets efficiency
+                        %a.dropdown-item{href:graph_bets_report_index_path} Bets payback
+                        %a.dropdown-item{href:by_week_bets_report_index_path} Bets by week
+                  -else
+                    %li.nav-item=link_to('Forum',all_posts_path,class:'nav-link active')
+                  -if controller_name=='daily_tips'
+                    %li.nav-item.daily-interactive-elem
+                      %a.nav-link.daily_toggle_dutch#daily_toggle_dutch{href:'#'} Dutching
+                    %li.nav-item.daily-interactive-elem
+                      %a.nav-link.daily_toggle_tips#daily_toggle_tips{href:'#'} Past tips
+                  -else
+                    %li.nav-item=link_to('Daily tips',dailytips_path,class:'nav-link active')
+                  %li.nav-item=link_to('About us',welcome_page_public_info_index_path,class:'nav-link active')
+                  %li.nav-item.active.dropdown
+                    %a#navbarDropdownInfo.nav-link.dropdown-toggle{href:'#',role:'button','data-toggle':'dropdown','aria-haspopup':true,'aria-expanded':false} Info
+                    .dropdown-menu{'aria-labelledby':'navbarDropdownInfo'}
+                      %a.dropdown-item{href:upcoming_feature_races_path} Upcoming feature races
+                      %a.dropdown-item{href:terms_and_conditions_public_info_index_path} Terms and Conditions
+                      %a.dropdown-item{href:privacy_policy_public_info_index_path} Privacy policy
+                      %a.dropdown-item{href:dutch_betting_public_info_index_path} Dutch betting
+                  %li.nav-item.active.dropdown
+                    %a#navbarDropdownUser.nav-link.dropdown-toggle{href:'#',role:'button','data-toggle':'dropdown','aria-haspopup':true,'aria-expanded':false} Profile
+                    .dropdown-menu{'aria-labelledby':'navbarDropdownUser'}
+                      %a.dropdown-item{href:edit_user_registration_path} Edit
+                      -if current_user.is_admin
+                        %a.dropdown-item{href:user_index_path} Users
+                      %a.dropdown-item{href:destroy_user_session_path,method: :delete} Logout
+                  %li.nav-item
+                    = link_to "Subscribe", plans_path, class: 'nav-link'
+                  %li.nav-item
+                    %a.nav-link{href:'https://facebook.com/groups/1723251237804456',target:'_blank'}
+                      Join us on
+                      %img{src:image_path('fb_logo.png'),style:'width:20px;height:20px;margin-top:1px;'}
+    -if alert
+      %div#notice_wrapper.themed-background
+        %p.alert=alert
+    -elsif notice
+      %div#notice_wrapper.themed-background
+        %p.notice=notice
+    =yield
+    -if user_signed_in?
+      .container.themed-content
+        .row
+          .col-lg-12.top-padded
+            ="18+ Don't let the game play you. Stay in control. Gamble responsibly. Think! About your choices. Call Gambling Help on 1800 858 858 or visit www.gamblinghelp.nsw.gov.au or www.gamblinghelponline.org.au"

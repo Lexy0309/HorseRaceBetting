@@ -1,0 +1,14 @@
+%h3 Class report
+%table{border:1}
+  %thead
+    %tr
+      %th Race class
+      %th Total
+      %th Min
+      %th Max
+      %th Average
+  %tbody
+    -@result.each do |row|
+      %tr
+        -row.size.times do |i|
+          %td=row[i]

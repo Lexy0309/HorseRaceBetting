@@ -1,0 +1,1 @@
+$(".post_comments_div_<%= @post_comment.post.id %>").html("<%= escape_javascript render(:partial => 'list', :locals => { :post => @post_comment.post }) %>");

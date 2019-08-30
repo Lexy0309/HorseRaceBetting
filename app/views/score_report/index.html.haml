@@ -1,0 +1,77 @@
+.container.themed-content
+  .row
+    .col-lg-12
+      -fields = %w[Barrier In_run Winrate Margin Jockey Trainer Class Ability Price Empty]
+      -if !@dates.nil? && @dates.any?
+        %h3 Score report could be prepared by following dates
+        %button.perc-toggle Toggle perc
+        %button.weight-toggle Toggle weight
+        %table
+          %tr
+            %td{style:'vertical-align:top'}
+              %table{border:1}
+                %thead
+                  %tr
+                    %td Date
+                %tbody
+                  -@dates.each do |date|
+                    %tr
+                      %td=link_to(date,score_report_index_path(date:date))
+            %td{style:'vertical-align:top'}
+              %table{border:1}
+                %thead
+                  %tr
+                    %td Track
+                    %td ID
+                    %td Total
+                    %td Score total
+                    -@score_count.times do |i|
+                      %td=fields[i]
+                      %td.perc="#{fields[i]} perc"
+                      %td.weight="#{fields[i]} weight"
+                      %td.weight="#{fields[i]} weight corrected"
+                -if TrackStat.any?
+                  %tbody
+                    -TrackStat.includes(:track).order('total desc').each do |track_stat|
+                      %tr
+                        %td=link_to(track_stat.track.title,score_report_index_path(track_id:track_stat.track_id))
+                        %td=track_stat.track_id
+                        %td=track_stat.total
+                        %td=track_stat.score_total
+                        -@score_count.times do |i|
+                          %td=track_stat.send("score#{i+1}")
+                          %td.perc=track_stat.send("score#{i+1}_perc")
+                          %td.weight=track_stat.send("score#{i+1}_weight")
+                          %td.weight=track_stat.send("score#{i+1}_weight_corrected")
+      -elsif !@result.nil? && @result.any?
+        %h3="Score report at #{@track_id.zero? ? @date : @result[0][0]}"
+        %button.perc-toggle Toggle perc
+        %table{border:1}
+          %thead
+            %tr
+              %td Track
+              %td Total races count
+              -@score_count.times do |i|
+                %td="#{fields[i]} correct"
+                %td.perc="#{fields[i]} percentage"
+          %tbody
+            -total = @result[0][1,@result[0].size].map{0}
+            -@result.each do |row|
+              -row.each_with_index do |value,index|
+                -if index>0
+                  -total[index-1] += value
+              %tr
+                %td=link_to(row[0],race_path(row[-1]))
+                %td=row[1]
+                -@score_count.times do |i|
+                  %td=row[2+i]
+                  %td.perc{style:average(row[2+i],row[1]) > 0.4 ? 'font-weight:bold' : ''}=average(row[2+i],row[1])
+          %tfoot
+            %tr
+              %td Total
+              %td=total[0]
+              -total[1,total.size-2].each do |value|
+                %td=value
+                %td.perc
+      -else
+        %h3 No data. Score reports could not be prepared

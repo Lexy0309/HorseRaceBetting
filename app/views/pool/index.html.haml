@@ -1,0 +1,40 @@
+.container.themed-content
+  .row
+    .col-lg-12
+      .card
+        .card-body
+          %h1.card-title Prize pool graph
+          .form-group
+            .row
+              .col-lg-3
+                %select#poolControlType.form-control
+                  %option{value: :day} Specify graph...
+                  %option{value: :day} Day of week
+                  %option{value: :month} Month
+                  %option{value: :week} Week
+              .col-lg-3
+                %select#poolControlYear.form-control
+                  %option{value: 0} Specify year...
+                  %option{value: 2017} 2017
+                  %option{value: 2018} 2018
+              .col-lg-3
+                %select#poolControlState.form-control
+                  %option{value:0} Specify state...
+                  -@states.each do |state|
+                    %option{value:state.id}=state.title
+              .col-lg-3
+                %select#poolControlTrack.form-control{'data-store':@tracks.map{|t| [t.title,t.id,t.track_detail.state_id]}}
+                  %option{value:0} Specify track...
+                  -@tracks.each do |track|
+                    %option{value:track.id}=track.title
+            %br
+            %h3.card-title Check bet types
+            .row
+              -RacePool::BET_TITLES.each_slice(3).to_a.each do |arr|
+                .col-lg-3
+                  -arr.each do |title|
+                    .form-check
+                      %input.form-check-input.poolControlBetType{type:'checkbox',name:"poolControlType#{title}",id:"poolControlType#{title}",checked: true,'data-title':title}
+                      %label{for:"poolControlType#{title}"}=RacePool.capitalize_special(title)
+    .col-lg-12.top-padded
+      #poolGraph

@@ -1,0 +1,26 @@
+%h1 Listing race_condition_details
+-external = RaceConditionDetail.get_external.join(', ')
+-unless external.blank?
+  %h3 External race condition (out of our list)
+  %p=external
+%table
+  %thead
+    %tr
+      %th Title
+      %th Rank
+      %th
+      %th
+      %th
+
+  %tbody
+    - @race_condition_details.each do |race_condition_detail|
+      %tr
+        %td= race_condition_detail.title
+        %td= race_condition_detail.rank
+        %td= link_to 'Show', race_condition_detail
+        %td= link_to 'Edit', edit_race_condition_detail_path(race_condition_detail)
+        %td= link_to 'Destroy', race_condition_detail, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Race condition detail', new_race_condition_detail_path

@@ -1,0 +1,64 @@
+.container.themed-content
+  .row
+    .col-lg-12
+      %h2.plan-name
+        = @plan.name
+      .subscription-box
+        .subscription-box-head
+          %h5
+            %span 1.
+            Your Information
+          %a.link-edit{:href => edit_user_registration_path} Edit
+        .subscription-box-body
+          %div
+            = current_user.full_name
+          %div
+            = current_user.email
+      .subscription-box
+        .subscription-box-head
+          %h5
+            %span 2.
+            Contact Details
+          %a.link-edit.pointer{href: "#", "data-target" => "#addressModal", "data-toggle" => "modal"} Edit
+        .subscription-box-body
+          %div
+            %b Billing address
+          %p
+            = current_user.billing_address.full_address if current_user.billing_address
+          %div
+            %b Mobile Number
+          %p
+            = current_user.mobile_number
+          %div
+            %b Delivery address
+          %p
+            = current_user.delivery_address.full_address if current_user.delivery_address
+      .subscription-box
+        .subscription-box-head.py-1
+          %h5.my-auto
+            %span 3.
+            Payment Details
+          %div.ml-auto
+            = image_tag 'visa.png', width: 35
+            = image_tag 'mastercard.png', width: 35
+            = image_tag 'american-express.png', width: 35
+        .subscription-box-body
+          = form_tag plan_subscriptions_path, id: "subscription-form" do
+            .card-fields
+              %span.subscription-errors.text-error
+              .form-group
+                %label Card Holder Name
+                %input{"data-stripe" => "name", :type => "text", :value => "", class: 'form-control'}/
+              .form-group
+                %label Card Number
+                %input{"data-stripe" => "number", :type => "text", :value => "", class: 'form-control mask_card_number'}/
+              .form-group.cvv-box
+                %label CVC
+                %input{"data-stripe" => "cvc", :type => "text", :placeholder => "123", class: 'form-control mask_cvv'}/
+              .form-group.ex-date
+                %label Expiration Month / Year
+                %input{"data-stripe" => "exp-month", :type => "text", :placeholder => "05", class: 'form-control mask_month'}/
+                %span /
+                %input{"data-stripe" => "exp-year", :type => "text", :placeholder => "2020", class: 'form-control mask_year'}/
+            %button{:type => "submit", class: "btn btn-success btn-sub-payment"} Continue
+= render 'plans/address_modal'

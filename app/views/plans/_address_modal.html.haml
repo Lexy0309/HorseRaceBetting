@@ -1,0 +1,31 @@
+#addressModal.modal.fade{:role => "dialog"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h4.modal-title Contact Details
+        %button.close{"data-dismiss" => "modal", :type => "button"} ×
+      = form_tag store_billing_detail_path do
+        .modal-body
+          .form-group
+            %label Billing address
+            %input{"name" => "billing_address1", :type => "text", :value => (current_user.billing_address.address1 if current_user.billing_address), class: 'form-control', required: true, placeholder: 'Address Line 1'}/
+          .form-group
+            %input{"name" => "billing_address2", :type => "text", :value => (current_user.billing_address.address2 if current_user.billing_address), class: 'form-control', placeholder: 'Address Line 2'}/
+          .form-group.d-flex
+            %input{"name" => "billing_city", :type => "text", :value => (current_user.billing_address.city if current_user.billing_address), class: 'form-control mr-2', required: true, placeholder: 'City'}/
+            %input{"name" => "billing_state", :type => "text", :value => (current_user.billing_address.state if current_user.billing_address), class: 'form-control mr-2', required: true, placeholder: 'State'}/
+            %input{"name" => "billing_zipcode", :type => "text", :value => (current_user.billing_address.zipcode if current_user.billing_address), class: 'form-control mask_zipcode', required: true, placeholder: 'Zipcode'}/
+          .form-group
+            %label Mobile Number
+            %input{"name" => "mobile_number", :type => "text", :value => current_user.mobile_number, class: 'form-control mask_mobile', required: true}/
+          .form-group
+            %label Delivery address
+            %input{"name" => "delivery_address1", :type => "text", :value => (current_user.delivery_address.address1 if current_user.delivery_address), class: 'form-control', required: true, placeholder: 'Address Line 1'}/
+          .form-group
+            %input{"name" => "delivery_address2", :type => "text", :value => (current_user.delivery_address.address2 if current_user.delivery_address), class: 'form-control', placeholder: 'Address Line 2'}/
+          .form-group.d-flex
+            %input{"name" => "delivery_city", :type => "text", :value => (current_user.delivery_address.city if current_user.delivery_address), class: 'form-control mr-2', required: true, placeholder: 'City'}/
+            %input{"name" => "delivery_state", :type => "text", :value => (current_user.delivery_address.state if current_user.delivery_address), class: 'form-control mr-2', required: true, placeholder: 'State'}/
+            %input{"name" => "delivery_zipcode", :type => "text", :value => (current_user.delivery_address.zipcode if current_user.delivery_address), class: 'form-control mask_zipcode', required: true, placeholder: 'Zipcode'}/
+          %input{"name" => "plan_id", :type => "hidden", class: 'plan_id', value: params[:plan_id]}/
+          %button.btn.btn-primary{:type => "submit"} Next

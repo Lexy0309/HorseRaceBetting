@@ -1,0 +1,26 @@
+%h1 Listing rail_detail_ranks
+-external = RailDetailRank.get_external.join(', ')
+-unless external.blank?
+  %h3 External rail info (out of our list)
+  %p=external
+%table
+  %thead
+    %tr
+      %th Title
+      %th Rank
+      %th
+      %th
+      %th
+
+  %tbody
+    - @rail_detail_ranks.order(:rank).each do |rail_detail_rank|
+      %tr
+        %td= rail_detail_rank.title
+        %td= rail_detail_rank.rank
+        %td= link_to 'Show', rail_detail_rank
+        %td= link_to 'Edit', edit_rail_detail_rank_path(rail_detail_rank)
+        %td= link_to 'Destroy', rail_detail_rank, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Rail detail rank', new_rail_detail_rank_path

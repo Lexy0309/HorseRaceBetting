@@ -1,0 +1,40 @@
+%link{href: "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css", rel: "stylesheet"}/
+%link{href: "https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.1.5/css/emoji.css", rel: "stylesheet"}/
+%script{src: "https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.1.5/js/config.js"}
+%script{src: "https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.1.5/js/util.js"}
+%script{src: "https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.1.5/js/jquery.emojiarea.js"}
+%script{src: "https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.1.5/js/emoji-picker.js"}
+
+:javascript
+  $(function() {
+    window.emojiPicker = new EmojiPicker({
+      emojiable_selector: '[data-emojiable=true]',
+      assetsPath: '/emoji',
+      popupButtonClasses: 'fa fa-smile-o'
+    });
+    window.emojiPicker.discover();
+  });
+
+.container.themed-content
+  .row
+    .col-lg-12
+      %h1
+        Posts
+      -if @posts.count > 0
+        -@posts.each do |post|
+          %div.post-box
+            .p
+              %b
+                = post.created_by.full_name if post.created_by.present?
+              %small
+                = time_ago_in_words(post.created_at) + " ago" if post.created_at.present?
+            = simple_format(post.message)
+            = image_tag post.image, class: 'img-fluid post-image' if post.image.present?
+            .post_comment_form
+              = render 'form', post_comment: PostComment.new, post: post
+            %h5.comment-lists Comments
+            %div{class: "post_comments_div_#{post.id}"}
+              = render 'list', post: post
+          %hr
+      -else
+        %p No Post Found

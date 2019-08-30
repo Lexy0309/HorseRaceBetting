@@ -1,0 +1,72 @@
+.plan-name {
+  text-align: center;
+  border-bottom: 1px solid #343a40;
+  padding: 0 0 15px;
+  margin: 25px 0 20px;
+}
+.subscription-box {
+  padding: 0;
+  background: #efefef;
+  width: 45%;
+  margin: 20px auto 0;
+  border-radius: 0;
+  border:1px solid #b5b4b4;
+
+  .subscription-box-head{
+    padding: 10px 15px;
+    border-bottom: 1px solid #b5b4b4;
+    display: flex;
+
+    h5 {
+      margin: 0;
+      color: #1a8650;
+    }
+
+    .link-edit {
+      margin-left: auto;
+      text-transform: uppercase;
+    }
+  }
+
+  .subscription-box-body {
+    padding: 20px 15px;
+    background: #fff;
+  }
+
+  .card-fields {
+    .form-group {
+      label {
+        display: block;
+      }
+      &.cvv-box{
+        width: 49%;
+        display: inline-block;
+        padding-right: 20px;
+      }
+      &.ex-date{
+        width: 50%;
+        display: inline-block;
+        .form-control {
+          width: 46%;
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .btn-sub-payment{
+    margin: 15px auto 0;
+    display: block;
+  }
+}
+.subscribe-report{
+  margin: 40px 0 0;
+  tr {
+    th {
+      border-top: 0;
+    }
+  }
+}
+.text-error{
+  color: #a94442;
+}

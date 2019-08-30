@@ -1,0 +1,6 @@
+.container.themed-content
+  .row
+    .col-lg-12
+      -@races.each do |race|
+        =link_to(race.full_title,race_path(race))
+        %br

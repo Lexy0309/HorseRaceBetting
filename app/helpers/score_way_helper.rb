@@ -1,0 +1,2 @@
+module ScoreWayHelper
+end

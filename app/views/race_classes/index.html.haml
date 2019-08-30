@@ -1,0 +1,26 @@
+%h1 Listing race_classes
+-external = RaceClass.get_external.join(', ')
+-unless external.blank?
+  %h3 External classes (out of our list)
+  %p=external
+%table
+  %thead
+    %tr
+      %th Title
+      %th Rank
+      %th
+      %th
+      %th
+
+  %tbody
+    - @race_classes.each do |race_class|
+      %tr
+        %td= race_class.title
+        %td= race_class.rank
+        %td= link_to 'Show', race_class
+        %td= link_to 'Edit', edit_race_class_path(race_class)
+        %td= link_to 'Destroy', race_class, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Race class', new_race_class_path

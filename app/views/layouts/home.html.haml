@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Betbuilder
+    =csrf_meta_tags
+    %meta{charset: "utf-8"}
+    %meta{content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", name: "viewport"}/
+    %link{href: "https://fonts.googleapis.com/css?family=Roboto:400,700,900", rel: "stylesheet"}/
+    = stylesheet_link_tag 'home', media: 'all'
+    %link{:href => "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :rel => "stylesheet"}/
+    = javascript_include_tag 'home', 'https://js.stripe.com/v2/'
+    = tag :meta, name: "stripe-key", content: StripeEvent.signing_secret
+  %body
+    = render :partial => 'flash_messages', :flash => flash
+    = yield

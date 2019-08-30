@@ -1,0 +1,23 @@
+.container.themed-content
+  .row
+    .col-xs-12.col-lg-12
+      .plans
+        %h2 Plans
+        .row
+          - @plans.each do |plan|
+            .col-xs-12.col-lg-4
+              .plan-box{class: %w[pineapples_tier_1 magic_eightball_tier_3].include?(plan.payment_gateway_plan_identifier) ? '' : 'plan-box-coming-soon'}
+                %h4
+                  = plan.name
+                %h5= "#{humanized_money_with_symbol(plan.price)} / #{plan.interval} #{plan.interval_count}"
+                = plan.description.html_safe
+                - subscription = current_user.get_subscription(plan.id) if current_user
+                %img.plan-image{src:image_path("#{plan.payment_gateway_plan_identifier}.png")}
+                - if %w[pineapples_tier_1 magic_eightball_tier_3].include?(plan.payment_gateway_plan_identifier)
+                  - if subscription
+                    = link_to("Subscribed", plan_subscription_path(plan, subscription), class:'btn btn-info')
+                  - else
+                    %button.btn.btn-success{"data-target" => "#addressModal", "data-toggle" => "modal", :type => "button", onclick: "$('.plan_id').val(#{plan.id})"} Subscribe
+                - else
+                  %button.btn.btn-success{:disabled => "disabled", :type => "button"} Subscribe
+= render 'address_modal'

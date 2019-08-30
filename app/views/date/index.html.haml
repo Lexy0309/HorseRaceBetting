@@ -1,0 +1,16 @@
+-unless @data.blank?
+  .themed-content
+    %table{border:1}
+      %thead
+        %th Category
+        %th Count
+        %th Amount
+        %th Reward
+      %tbody
+        -@data.each do |row|
+          %tr
+            %td=Bet.category_title row[0]
+            %td=row[1]
+            %td="$#{row[2]}"
+            %td="$#{row[3]}"
+

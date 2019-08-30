@@ -1,0 +1,129 @@
+%h3='Exacta4 details'
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th Amount
+        %th Reward
+        %th Race
+        %th Runner 1
+        %th Runner 2
+        %th Runner 3
+        %th Runner 4
+    %tbody
+      -@exacta4.each do |row|
+        %tr{class: row[3].to_i>0 ? 'correct_guessed_bet' : ''}
+          %td="$#{row[2]}"
+          %td="$#{row[3]}"
+          %td=link_to(row[4],race_path(row[5]))
+          %td{class: (row[6]==row[10] || row[6]==row[11]) ?  'correct_guessed_horse' : 'incorrect_guessed_horse'}=row[6]
+          %td{class: (row[7]==row[10] || row[7]==row[11]) ?  'correct_guessed_horse' : 'incorrect_guessed_horse'}=row[7]
+          %td{class: row[8]==row[11] ?  'correct_guessed_horse' : 'incorrect_guessed_horse'}=row[8]
+          %td{class: row[9]==row[11] ?  'correct_guessed_horse' : 'incorrect_guessed_horse'}=row[9]
+  %h3='Exacta3 details'
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th Amount
+        %th Reward
+        %th Race
+        %th Runner 1
+        %th Runner 2
+        %th Runner 3
+    %tbody
+      -@exacta3.each do |row|
+        %tr{class: row[3].to_i>0 ? 'correct_guessed_bet' : ''}
+          %td="$#{row[2]}"
+          %td="$#{row[3]}"
+          %td=link_to(row[4],race_path(row[5]))
+          %td{class: (row[6]==row[9] || row[6]==row[10]) ?  'correct_guessed_horse' : 'incorrect_guessed_horse'}=row[6]
+          %td{class: (row[7]==row[9] || row[7]==row[10]) ?  'correct_guessed_horse' : 'incorrect_guessed_horse'}=row[7]
+          %td{class: row[8]==row[10] ?  'correct_guessed_horse' : 'incorrect_guessed_horse'}=row[8]
+        %h3='Win1 details'
+        %table.table.table-bordered
+          %thead
+            %tr
+              %th Amount
+              %th Reward
+              %th Race
+              %th Horse
+              %th Price
+          %tbody
+            -@win1.each do |row|
+              %tr{class:row[8].to_i==1 ? 'correct_guessed_bet' : ''}
+                %td="$#{row[2]}"
+                %td="$#{row[3]}"
+                %td=link_to(row[4],race_path(row[5]))
+                %td{class: row[8].to_i==1 ? 'correct_guessed_horse' : 'incorrect_guessed_horse'}=row[6]
+                %td{class: row[8].to_i==1 ? 'correct_guessed_horse' : 'incorrect_guessed_horse'}="$#{row[7]}"
+        %h3='Win2 details'
+        %table.table.table-bordered
+          %thead
+            %tr
+              %th{rowspan:2} Amount
+              %th{rowspan:2} Reward
+              %th{colspan:3} Bet 1
+              %th{colspan:3} Bet 2
+              %th{colspan:3} Bet 3
+            %tr
+              %th Race
+              %th Horse
+              %th Price
+              %th Race
+              %th Horse
+              %th Price
+              %th Race
+              %th Horse
+              %th Price
+          %tbody
+            -@win2.each do |row|
+              %tr{class: row[4].to_i>0 ? 'correct_guessed_bet' : ''}
+                %td="$#{row[3]}"
+                %td="$#{row[4]}"
+                %td=link_to(row[5],race_path(row[7]))
+                %td{class:row[6]==row[8] ? 'correct_guessed_horse' : 'incorrect_guessed_horse'}=row[6]
+                %td{class:row[6]==row[8] ? 'correct_guessed_horse' : 'incorrect_guessed_horse'}="$#{row[9]}"
+                %td=link_to(row[10],race_path(row[12]))
+                %td{class:row[11]==row[13] ? 'correct_guessed_horse' : 'incorrect_guessed_horse'}=row[11]
+                %td{class:row[11]==row[13] ? 'correct_guessed_horse' : 'incorrect_guessed_horse'}="$#{row[14]}"
+                -if row[20].to_i.zero?
+                  %td
+                  %td
+                  %td
+                -else
+                  %td=link_to(row[15],race_path(row[17]))
+                  %td{class:row[16]==row[18] ? 'correct_guessed_horse' : 'incorrect_guessed_horse'}=row[16]
+                  %td{class:row[16]==row[18] ? 'correct_guessed_horse' : 'incorrect_guessed_horse'}="$#{row[19]}"
+        %h3='Win4 details'
+        %table.table.table-bordered
+          %thead
+            %tr
+              %th Amount
+              %th Reward
+              %th Race
+              %th Horse
+              %th Price
+          %tbody
+            -@win4.each do |row|
+              %tr{class:row[8].to_i==1 ? 'correct_guessed_bet' : ''}
+                %td="$#{row[2]}"
+                %td="$#{row[3]}"
+                %td=link_to(row[4],race_path(row[5]))
+                %td{class: row[8].to_i==1 ? 'correct_guessed_horse' : 'incorrect_guessed_horse'}=row[6]
+                %td{class: row[8].to_i==1 ? 'correct_guessed_horse' : 'incorrect_guessed_horse'}="$#{row[7]}"
+        %h3='Win6 details'
+        %table.table.table-bordered
+          %thead
+            %tr
+              %th Amount
+              %th Reward
+              %th Race
+              %th Horse
+              %th Price
+          %tbody
+            -@win6.each do |row|
+              %tr{class:row[8].to_i==1 ? 'correct_guessed_bet' : ''}
+                %td="$#{row[2]}"
+                %td="$#{row[3]}"
+                %td=link_to(row[4],race_path(row[5]))
+                %td{class: row[8].to_i==1 ? 'correct_guessed_horse' : 'incorrect_guessed_horse'}=row[6]
+                %td{class: row[8].to_i==1 ? 'correct_guessed_horse' : 'incorrect_guessed_horse'}="$#{row[7]}"

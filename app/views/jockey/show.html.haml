@@ -1,0 +1,41 @@
+.container.themed-content
+  .row
+    .col-lg-12
+      %h1=@jockey.title
+      %table.table.table-bordered
+        %tr
+          %th Winrate
+          %td
+            .doughnutCenter=@jockey.winrate
+            .infoDoughnut{'data-success':@jockey.winrate}
+        %tr
+          %th Placerate
+          %td
+            .doughnutCenter=@jockey.placerate
+            .infoDoughnut{'data-success':@jockey.placerate}
+        %tr
+          %th Best track
+          %td=@jockey.track.title
+        %tr
+          %th Best trainer
+          %td=link_to(@jockey.trainer.title,trainer_path(@jockey.trainer))
+        %tr
+          %th Best distance
+          %td=@jockey.distance
+      -if @participates.any?
+        %table#historyMatches.table.table-bordered
+          %thead
+            %tr
+              %th Date
+              %th Race
+              %th Result
+              %th Horse
+              %th Trainer
+          %tbody
+            -@participates.each do |participate|
+              %tr
+                %td=participate.race.start_date
+                %td=link_to(participate.race.full_title,race_path(participate.race_id))
+                %td=participate.finished
+                %td=participate.horse.nil? ? '' : link_to(participate.horse.title,horse_path(participate.horse))
+                %td=participate.trainer.nil? ? '' : link_to(participate.trainer.title,trainer_path(participate.trainer))

@@ -1,0 +1,17 @@
+= form_for post_comment, html: { multipart: true }, remote: true do |f|
+  - if post_comment.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(post_comment.errors.count, "error")} prohibited this post comment from being saved:"
+      %ul
+        - post_comment.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.text_area :comment, class: 'form-control post_comment', placeholder: 'Add your comment here', 'data-emojiable': "true"
+    = f.file_field :image, class: 'hide'
+    = f.hidden_field :user_id, value: current_user.id
+    = f.hidden_field :post_id, value: post.id
+  .actions.mt-10
+    %a{onclick: "$(this).closest('form').find('#post_comment_image').click()", class: "pointer"}
+      = image_tag 'picture.png', height: 40, title: "Add image"
+    = f.submit 'Send', class: 'btn btn-secondary'

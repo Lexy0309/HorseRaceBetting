@@ -1,0 +1,2 @@
+module UpcomingFeatureRacesHelper
+end

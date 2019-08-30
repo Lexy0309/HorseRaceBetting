@@ -1,0 +1,30 @@
+.container
+  .row
+    .col-lg-12
+      %h1=@horse.title
+      %table.table.table-bordered
+        %tr
+          %th Sire
+          %td=@horse.sire
+        %tr
+          %th Dam
+          %td=@horse.dam
+        %tr
+          %th Sire of dam
+          %td=@horse.sire_of_dam
+        %tr
+          %th Foal date
+          %td=@horse.foal_date
+      -if @participates.any?
+        %table#historyMatches.table.table-bordered
+          %thead
+            %tr
+              %th Date
+              %th Race
+              %th Result
+          %tbody
+            -@participates.each do |participate|
+              %tr
+                %td=participate.race.start_date
+                %td=link_to(participate.race.full_title,race_path(participate.race_id))
+                %td=participate.finished

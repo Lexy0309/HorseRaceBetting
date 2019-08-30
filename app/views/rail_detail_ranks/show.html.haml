@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @rail_detail_rank.title
+%p
+  %b Rank:
+  = @rail_detail_rank.rank
+
+= link_to 'Edit', edit_rail_detail_rank_path(@rail_detail_rank)
+\|
+= link_to 'Back', rail_detail_ranks_path

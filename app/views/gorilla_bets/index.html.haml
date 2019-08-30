@@ -1,0 +1,41 @@
+.container.themed-content-special
+  .row
+    .col-lg-12
+      -if @today_bets.blank?
+        %h1 We are working on todays selections, please check back after 10am
+      -else
+        %h1 Today bets
+        %table.table.table-bordered.table-compact
+          %thead
+            %tr
+              %th Category
+              %th Races/Runners
+              %th Amount
+          %tbody
+            -@today_bets.each do |bet|
+              %tr
+                %td
+                  %button.btn.btn-secondary{type:'button','data-toggle':'tooltip','data-placement':'right',title:bet.category_descr}=bet.category_title
+                %td=bet.category==33 ? bet.special_title : bet.full_title
+                %td="$#{bet.amount}"
+      %h3 Yield since registration
+      .row
+        -(1..7).to_a.each_slice(2).to_a.each do |arr|
+          .col-lg-3
+            -arr.each do |i|
+              .form-check
+                %input.form-check-input.byWeekDayControl{type:'checkbox',name:"byWeekDayControl#{i}",id:"byWeekDayControl#{i}",checked: true,'data-id':i}
+                %label{for:"byWeekDayControl#{i}"}=weekday_titles[i-1]
+      #weekGraph
+      %table#weekContentTable.table.table-bordered
+        %thead
+          %tr
+            %th Date
+            %th Week
+            %th Amount
+            %th Reward
+            %th Profit
+            %th Spend total
+            %th Profit total
+        %tbody
+        %tfoot

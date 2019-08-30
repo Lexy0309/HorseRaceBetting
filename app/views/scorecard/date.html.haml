@@ -1,0 +1,29 @@
+-if @scorecards.any?
+  %h3="Scorecards at #{@start_date}"
+  %button.perc-toggle Toggle perc
+  %table{border:1}
+    %thead
+      %tr
+        %th Track
+        %th Total
+        %th Title
+        -Scorecard.field_list.each do |field|
+          %th=field.gsub('_',' ').titleize
+    %tbody
+      -@scorecards.each do |scorecard|
+        %tr
+          %td{rowspan:2}
+            -if @races.include?(scorecard.track_id)
+              =link_to(scorecard.track.title,race_path(@races[scorecard.track_id]))
+            -else
+              =scorecard.track.title
+          %td{rowspan:2}=scorecard.total_races
+          %td Count
+          -Scorecard.field_list.each do |field|
+            %td=scorecard.send("count_#{field}")
+        %tr
+          %td.perc Percentage
+          -Scorecard.field_list.each do |field|
+            %td.perc="#{scorecard.send("perc_#{field}")}%"
+-else
+  %h3="No scorecards at #{@start_date}"

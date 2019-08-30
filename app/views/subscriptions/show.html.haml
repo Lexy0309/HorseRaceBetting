@@ -1,0 +1,16 @@
+.container.themed-content
+  .row
+    .col-lg-12
+      %table.table.subscribe-report
+        %tr
+          %th Plan Name
+          %th Subscription Start Date
+          %th Actions
+        %tr
+          %td
+            = @subscription.plan.name
+          %td
+            = @subscription.start_date
+          %td
+            = link_to("Cancel Subscription", cancel_subscription_plan_subscription_path(@subscription.plan, @subscription), class:'btn btn-warning')
+            = link_to("Plans", plans_path, class:'btn btn-info')

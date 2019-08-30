@@ -1,0 +1,17 @@
+.container.themed-content
+  .row
+    .col-lg-12
+      %p
+        %b Message:
+        = simple_format(@post.message)
+      -if @post.image.present?
+        %p
+          %b Image:
+        %p
+          = image_tag @post.image, class: 'comment-image'
+      %p
+        %b Created_by:
+        = @post.created_by.full_name if @post.created_by.present?
+
+      = link_to 'Edit', edit_post_path(@post), class: 'btn btn-secondary'
+      = link_to 'Back', posts_path, class: 'btn btn-outline-secondary'

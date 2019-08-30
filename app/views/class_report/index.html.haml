@@ -1,0 +1,18 @@
+%h3 Class report
+%button.perc-toggle Toggle perc
+%table{border:1}
+  %thead
+    %tr
+      %th Rank
+      %th Total
+      -@score_count.times.each do |i|
+        %th=Race.score_fields[i]
+        %th.perc Perc
+  %tbody
+    -@result.each do |row|
+      %tr
+        %td=row[0]
+        %td=row[1]
+        -Race.score_fields.size.times.each do |i|
+          %td=row[i*2+2]
+          %td.perc=row[i*2+3]

@@ -1,0 +1,12 @@
+%table{border:1}
+  %thead
+    %th Title
+    %th Count
+    %th Explanation
+  %tbody
+    -@score_ways.each do |score_way|
+      %tr
+        %td=score_way.title
+        %td=score_way.count
+        %td=score_way.title.split('').map(&:to_i).map{|i| ['barrier','inrun','winrate','margin','jockey','trainer','class','ability','inrun_first','inrun_last'][i]}.join(', ')
+

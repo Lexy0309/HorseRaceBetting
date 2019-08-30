@@ -1,0 +1,5 @@
+<% if resource.errors.any? %>
+  $('.signup_form').html("<%= j render(:partial => 'form') %>");
+<% else %>
+  $(window.location.replace("/"))
+<% end %>

@@ -1,0 +1,2 @@
+module RailDetailRanksHelper
+end

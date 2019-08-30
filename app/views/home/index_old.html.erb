@@ -1,0 +1,208 @@
+<header class="header">
+  <div class="container">
+    <div class="logo"><a href=""><%= image_tag "logo.png", alt: "Logo" %></a></div>
+    <nav class="navbar navbar-expand-lg">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="active"><a href="#">Home</a></li>
+          <li class="active"><a href="#">About</a></li>
+          <li class="active"><a href="#">Plans</a></li>
+          <li class="active"><a href="#">Magic Eight ball</a></li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="active"><a href="#" data-toggle="modal" data-target="#SignInModal">Sign in</a></li>
+          <li class="active"><a href="#" data-toggle="modal" data-target="#SignUpModal">Sign up </a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="caroseul">
+  <div class="owl-carousel owl-theme">
+    <div class="item">
+      <span><%= image_tag "caroseul-1.jpg", alt: "Icon" %></span>
+      <div class="container">
+        <div class="caroseul-caption">
+          <small>Welcome to</small>
+          <h2>BetBuilder</h2>
+          <p>When an unknown printer took a galley of type and  <br/> scrambled it to make a type book.</p>
+          <a href="">View Plans <i class="fa fa-angle-double-right "></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <span><%= image_tag "caroseul-1.jpg", alt: "Icon" %></span>
+      <div class="container">
+        <div class="caroseul-caption">
+          <small>Welcome to</small>
+          <h2>BetBuilder</h2>
+          <p>When an unknown printer took a galley of type and  <br/> scrambled it to make a type book.</p>
+          <a href="">View Plans <i class="fa fa-angle-double-right "></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="signup-for-free">
+  <div class="container">
+    <h2>
+      <big>We dig the stats, we’ve done the form, </big>
+      <small>you get the tips- free, every day”</small>
+    </h2>
+    <a href="">Sign up for free tips daily</a>
+  </div>
+</section>
+
+<section class="description-wrap">
+  <div class="container">
+    <div class="d-flex">
+      <div class="description-img">
+        <%= image_tag "img-01.png", alt: "Icon" %>
+      </div>
+      <div class="description-text">
+        <p>At Betbuilder we have devisived a way of teaching a computer how to do the form without the use of price and market sentiment. <strong>What does this mean?</strong></p>
+        <p>You get an objective tipping service, an effecitve tipping service and a service that isn’t concerned with price- just winners. <strong>But guess what?</strong> It’s gets even better than that, we present these picks for every race meeting, everyday, for free! Yep. Every top 4 race selection, free.</p>
+        <p>The difference between us and the competition, we measure everything. Current day tips are results live as they settle, the average price of our succesful picks, the success rate of our picks, which race track we are successful at and more! Everything. You get smart, scientific tipping for free, everyday, to balance your own form analysis with confidence. However we haven’t stopped there. We have devised a method for each betting type which is actually profitable, found in our Gorillas memerbship appropirately named because you get exactly that – <strong>Gorillas (insert cash symbol)!!</strong> In addition to this we have jam packed our Pineapples subscription with tools not found anywhere else: Race strength, Best betting markets, Magic eightball that provides tips at click for next to go races, exotics numbers and more. </p>
+        <p><strong>The features don’t end at tipping</strong> and we are just getting started. So don’t listen to some smart alec bookmaker has been OR some desperate punter looking for the next way to waste his money, think objectivelyt, be patient and the spoils will be yours. Hope to see you trackside punters.</p>
+        <h6>
+          <em>Regards,</em>
+          <strong>Paul Gradwell</strong>
+          <em>Betbuilder founder and statistics enthusiast</em>
+        </h6>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="plans-wrap">
+  <div class="container">
+    <h2>
+      <big>Plans</big>
+      <em>Into electronic typesetting.</em>
+    </h2>
+    <ul class="d-flex plans-ul">
+      <li>
+        <div class="plans-box">
+          <h3>Pineapples</h3>
+          <h6><strong>$8.88/</strong> Week billed Monthly</h6>
+          <ul class="plans-point">
+            <li>Daily tips Pushed to your account</li>
+            <li>First four numbers</li>
+            <li>Quaddie numbers</li>
+            <li>Magic eight bal</li>
+            <li>Best betting markets (races)</li>
+            <li>Bets strength per race</li>
+          </ul>
+          <div class="icon-img"><%= image_tag "icon-1.jpg", alt: "Icon" %></div>
+          <div class="subscribe-btn"><a href="">Subscribe</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="plans-box">
+          <h3>Gorillas</h3>
+          <h6><Strong>$18.88/</strong> Week billed Monthly</h6>
+          <ul class="plans-point">
+            <li>All the Pineapples membership benefits</li>
+            <li>Proven winning bet strategies tailored to your bank and betting days</li>
+            <li>Black book access (ours + your)</li>
+          </ul>
+          <div class="icon-img"><%= image_tag "icon-2.jpg", alt: "Icon" %></div>
+          <div class="subscribe-btn"><a href="">Subscribe</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="plans-box">
+          <h3>Magic Eightball</h3>
+          <h6><strong>$10 for 3days</strong> <small>(1 day + 2 days free)</small></h6>
+          <ul class="plans-point">
+            <li>Tips provided based on proprietarty algorithms dilvered in the click of a button. You can’t do the form, let the eightball pick the winners for you! (also included in memberships)</li>
+          </ul>
+          <div class="icon-img"><%= image_tag "icon-3.jpg", alt: "Icon" %></div>
+          <div class="subscribe-btn"><a href="">Subscribe</a></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>18+ Don't let the game play you. Stay in control. Gamble responsibly. Think! About your choices.</p>
+    <p>Call Gambling Help on <strong>1800 858 858</strong> or visit <em>www.gamblinghelp.nsw.gov.au</em> or <em>www.gamblinghelponline.org.au</em></p>
+  </div>
+</footer>
+
+<!-- <p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p> -->
+
+<div id="SignUpModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+            <h1 style="text-align:center;">Sign up</h1>
+            <a href="/users/auth/facebook">
+              <img src="<%= image_path('fb_login.png') %>" style="width:100%;padding:20px;"/>
+            </a>
+            <h3 style="text-align:center;">Or</h3>
+            <%= render 'devise/registrations/form' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="SignInModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+            <a href="/users/auth/facebook">
+              <img src="<%= image_path('fb_login.png') %>" style="width:100%;padding:20px;"/>
+            </a>
+            <h1 class="card-title" style="text-align:center;">OR</h1>
+            <h3 style="text-align:center;">Sign in with an account</h3>
+            <p id="login_error" class="hide">Invalid Email or password</p>
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name), remote: true, authenticity_token: true, html: { id: 'login_form' }) do |f| %>
+            <div class="form-group">
+              <div class="field">
+                <%= f.email_field :email, autofocus: true, placeholder: 'Email address', class: 'form-control', id: 'email' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="field">
+                <%= f.password_field :password, autocomplete: 'off', placeholder: 'Password', class: 'form-control', id: 'password' %>
+              </div>
+            </div>
+            <p>
+              By entering Betbuilder I accept
+              <a href="<%= terms_and_conditions_public_info_index_path %>" target="_blank">Terms and Conditions</a>
+            </p>
+            <div class="actions">
+              <%= f.submit 'Sign in', class: 'btn btn-secondary', style: 'width: 100%; font-size: 22px; font-weight: bold;' %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.owl-carousel').owlCarousel({
+    items:1,
+    margin:0,
+    animateIn: 'fadeIn',
+    animateOut: 'fadeOut'
+  });
+</script>

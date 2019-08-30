@@ -1,0 +1,18 @@
+-if post.post_comments.count > 0
+  -post.post_comments.each do |pc|
+    .row
+      .col-12
+        %div.comment-box
+          .p
+            %b
+              = pc.user.full_name if pc.user.present?
+            %small
+              = time_ago_in_words(pc.created_at) + " ago" if pc.created_at.present?
+            %span.pull-right
+              = link_to (image_tag 'delete.png', height: 15), pc, method: :delete, remote: true, data: { confirm: 'Are you sure, you want to remove this post comment?' }, class: 'pull-right' if pc.user_id == current_user.id || current_user.is_admin?
+          .p
+            = simple_format(pc.comment)
+            = image_tag pc.image, class: 'img-fluid comment-image' if pc.image.present?
+        %hr
+-else
+  %p No comments found

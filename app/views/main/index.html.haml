@@ -1,0 +1,131 @@
+.container.themed-content
+  .row
+    .col-lg-12.top-padded
+      #dailyGraph{'data-dashboard':@dashboard_data}
+      .container
+        .row
+          .col-lg-6
+            .btn-group
+              %button#today.btn.btn-lg.btn-outline-secondary.active{'data-date':'today'} Today
+              %button#tomorrow.btn.btn-lg.btn-outline-secondary{'data-date':'tomorrow'} Tomorrow
+              %input#selectDate.form-control{type:'test',placeholder:'or Select date',
+                'data-date-end-date':get_today_raw(1).strftime('%d-%m-%Y'),
+                'data-date-start-date':initial_date.strftime('%d-%m-%Y')}
+
+
+          -#SCORECARD
+          .col-lg-6
+            .btn-group
+              %a.btn.btn-outline-secondary.btn-lg{href:scorecard_index_path} Past results
+              %a.btn.btn-outline-secondary.btn-lg#summary{href:summary_path(get_today())} Summary
+
+          -#STATES BLOCK
+          .col-lg-6{style:'margin-top:20px;'}
+            .btn-group#states
+
+          -#TRACKS BLOCK
+          .col-lg-6{style:'margin-top:20px;'}
+            .btn-group#tracks
+
+          -#RACES BLOCK
+          .col-lg-12{style:'margin-top:20px;'}
+            .btn-group#races
+
+          -#Race block
+          .container{style:'margin-top:20px;min-height:150px;'}
+            .row
+              .col-3
+                .list-group#raceTab{role:'tablist'}
+                  %a.list-group-item.list-group-item-action.active#listTopList{'data-toggle':'list',href:'#listTopTab',role:'tab','aria-controls':'info'} Tips
+                  %a.list-group-item.list-group-item-action#listResultsList{'data-toggle':'list',href:'#listResults',role:'tab','aria-controls':'info'} Results
+                  %a.list-group-item.list-group-item-action#listInfoList{'data-toggle':'list',href:'#listInfo',role:'tab','aria-controls':'info'} Race info
+              .col-9
+                .tab-content#nav-tabContent
+                  .tab-pane#listTopTab.show.active{role:'tabpanel','aria-labelledby':'listTopList'}
+                    .container
+                      .row
+                        .col-lg-6#listTop
+                        .col-lg-6#mlTop
+                  .tab-pane#listResults{role:'tabpanel','aria-labelledby':'listResultsList'}
+                  .tab-pane#listInfo{role:'tabpanel','aria-labelledby':'listInfoList'}
+                    .container
+                      .row
+                        %table#raceInfo
+                          %tr
+                            %th
+                              %span.badge.badge-secondary Race
+                          %tr
+                            %th
+                              %span.badge.badge-secondary Details
+                          %tr
+                            %th
+                              %span.badge.badge-secondary Class
+                          %tr
+                            %th
+                              %span.badge.badge-secondary Rail
+
+    .col-lg-12#printBetBlock
+      .card
+        .card-body
+          %h3.card-title Selected horses
+          %table#betList.table.table-bordered.table-compact{'data-runners':[],'data-runners-keys':[]}
+            %thead
+              %tr
+                %th Race
+                %th Runner
+                %th Rank
+                %th Win
+                %th Place
+            %tbody
+          .btn-group
+            %button#printBetList.btn.btn-outline-secondary Print
+            %button#clearBetList.btn.btn-outline-secondary Clear
+            %button#toggleBetList.btn.btn-outline-secondary Toggle
+
+
+    -#ORDERING
+    .col-lg-12{style:'margin-top:10px;'}
+      .container
+        .row
+          .col-lg-8.col-md-12
+            .row
+              .col-lg-12
+                .btn-group
+                  %button.btn.btn-outline-secondary#switcher Switch all
+                .btn-group
+                  %button.btn.btn-outline-secondary.ordering.active{'data-order':0} by Number
+                  %button.btn.btn-outline-secondary.ordering{'data-order':1} by Barrier
+                  %button.btn.btn-outline-secondary.ordering{'data-order':2} by Winrate
+                  %button.btn.btn-outline-secondary.ordering{'data-order':3} by Fluctuation
+                  %button.btn.btn-outline-secondary.ordering{'data-order':4} by Rank
+              .col-lg-12{style:'margin-top:10px;'}
+                .btn-group
+                  %button.btn.btn-outline-secondary.ordering{'data-order':5} by Barrier winrate
+                  %button.btn.btn-outline-secondary.ordering{'data-order':6} by Jockey
+                  %button.btn.btn-outline-secondary.ordering{'data-order':7} by Trainer
+                  %button.btn.btn-outline-secondary.ordering{'data-order':8} by Margin
+                  %button.btn.btn-outline-secondary.ordering{'data-order':9} by Jump
+                  %button.btn.btn-outline-secondary.ordering{'data-order':10} by Turn
+          .col-lg-4.col-md-12
+            %table#raceSummary
+              %tr
+                %th
+                  %span.badge.badge-secondary Best position
+              %tr
+                %th
+                  %span.badge.badge-secondary Best jockey
+    -#HORSES BLOCK
+    .col-lg-12{style:'margin-top:20px;'}
+      %table.table.table-bordered.table-compact#horses{'data-score-fields':Race.score_fields}
+        %thead
+          %tr
+            %th{rowspan:2,colspan:2,style:'width:9%'} NO.
+            %th{rowspan:2,colspan:6,style:'width:36%'} Runner (B)
+            %th{rowspan:2,colspan:3,style:'width:30%'} Form
+            %th{rowspan:2,style:'width:5%'} Rank
+            %th{rowspan:2,style:'width:10%'} Probability
+            %th{colspan:2,style:'width:10%'} Fixed odd
+          %tr
+            %th{style:'width:5%'} Win
+            %th{style:'width:5%'} Place
+        %tbody

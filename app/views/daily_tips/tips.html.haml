@@ -1,0 +1,37 @@
+-if !@data.blank? && !@data[0].zero?
+  %table.table.table-bordered.table-compact
+    %thead
+      %tr
+        %th{rowspan:2} Total
+        %th{rowspan:2} Title
+        %th{colspan:4} Betbuilder
+        %th{colspan:4} TAB tips
+        %th{colspan:4} Racenet tips
+      %tr
+        %th 1st Sel.
+        %th Avg Win $
+        %th 2st Sel.
+        %th 1st Sel. PLC
+        %th 1st Sel.
+        %th Avg Win $
+        %th 2st Sel.
+        %th 1st Sel. PLC
+        %th 1st Sel.
+        %th Avg Win $
+        %th 2st Sel.
+        %th 1st Sel. PLC
+    %tbody
+      -unless @data.blank?
+        %tr
+          -@data.size.times do |i|
+            %td=@data[i]
+            -if i.zero?
+              %td Count
+        %tr
+          -@data.size.times.each_with_index do |i,index|
+            %td
+              -unless [2,6,10].include? index
+                =@data[0].to_i.zero? ? '' : "#{(@data[i].to_f/@data[0]*100).to_i}%"
+            -if i.zero?
+              %td Percentage
+

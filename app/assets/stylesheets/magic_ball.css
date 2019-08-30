@@ -1,0 +1,14 @@
+*, *::before, *::after {box-sizing: border-box; -webkit-box-sizing: border-box;}
+body {margin: 0;padding: 0; font-family: 'Roboto', sans-serif;}
+.magic-ball {background: #a9ffd4; height: 100vh; position: relative;}
+.magic-ball .ball-img {width: 600px; height: 600px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;}
+.magic-ball .ball-img:before { content: ''; width: 400px; height: 320px; background: #000; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
+.magic-ball .ball-text {background: #fff; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; height: 320px; font-size: 230px;  color: #000; font-weight: 900; text-align: center;}
+.magic-ball .ball-img img {display: block; max-width: 100%; cursor: pointer; position: relative; z-index: 2}
+.magic-ball .ball-img h3 {font-size: 24px; text-transform: uppercase; opacity: 0; font-weight: 900; margin: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); line-height: 1.2; }
+.magic-ball .ball-img h3 span {color: #fff; position: relative; display: block; text-align: center; top: 0; padding: 0 90px;}
+.magic-ball .ball-img h3:before {content: ''; position: absolute; width: 0px; height: 0px; border-bottom: 180px solid #00008b; border-left: 110px solid transparent; border-right: 110px solid transparent; left: 50%; transform: translate(-50%, -50%); top: 5px;}
+.zoomIn {-webkit-animation-name: zoomIn; animation-name: zoomIn; animation-fill-mode: forwards; animation-duration: 2s; animation-delay: 2s; }
+@-webkit-keyframes zoomIn { from { opacity: 0; } 100% { opacity: 1; } }
+@keyframes zoomIn { from { opacity: 0; } 100% { opacity: 1; } }
+@media only screen and (max-width: 767px) { .magic-ball .ball-img {width: 300px; height: 300px;} .magic-ball .ball-img:before {width: 180px; height: 160px;} .magic-ball .ball-text {width: 180px; height: 160px; font-size: 120px;} .magic-ball .ball-img h3 {font-size: 13px;} .magic-ball .ball-img h3::before {border-bottom-width: 90px; border-left-width: 60px; border-right-width: 60px;} @-webkit-keyframes shake { from { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); } to { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); } 10%, 30%, 50%, 70%, 90% { -webkit-transform: translate3d(0px, 0, 0); transform: translate3d(0px, 0, 0); } 20%, 40%, 60%, 80% { -webkit-transform: translate3d(20px, 0, 0); transform: translate3d(20px, 0, 0); } } @keyframes shake { from { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); } to { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); } 10%, 30%, 50%, 70%, 90% { -webkit-transform: translate3d(0px, 0, 0); transform: translate3d(0px, 0, 0); } 20%, 40%, 60%, 80% { -webkit-transform: translate3d(20px, 0, 0); transform: translate3d(20px, 0, 0); } } }

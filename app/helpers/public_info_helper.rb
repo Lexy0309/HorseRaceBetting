@@ -1,0 +1,2 @@
+module PublicInfoHelper
+end

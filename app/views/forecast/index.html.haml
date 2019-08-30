@@ -1,0 +1,122 @@
+%h1 Welcome to Betbuilder
+%h2 Horseracing picks based on stats, not opinion
+-daily_top_horses = Participate.daily_top(get_today)
+-daily_top_tracks = Scorecard.daily_top(get_today)
+-daily_top_price = Participate.daily_top_price(get_today)
+-if daily_top_horses.any? || daily_top_tracks.any? || daily_top_price.any?
+  %h3="Daily top for #{get_today_dmy}"
+  %table
+    %tr
+      %td{style:'vertical-align:top'}
+        -if daily_top_horses.any?
+          %table{border:1}
+            %thead
+              %tr
+                %th Track
+                %th Race
+                %th Horse
+                %th Score
+            %tbody
+              -daily_top_horses.each do |row|
+                %tr
+                  %td=row[0]
+                  %td=row[1]
+                  %td=row[2]
+                  %td=row[3]
+      %td{style:'vertical-align:top'}
+        -if daily_top_price.any?
+          %table{border:1}
+            %thead
+              %tr
+                %th Track
+                %th Race
+                %th Horse
+                %th Price
+            %tbody
+              -daily_top_price.each do |row|
+                %tr
+                  %td=row[0]
+                  %td="R#{row[1]}"
+                  %td="#{row[3]}. #{row[2]}"
+                  %td=row[4]
+      %td{style:'vertical-align:top'}
+        -if daily_top_tracks.any?
+          %table{border:1}
+            %thead
+              %tr
+                %th Track
+                %th Bet
+                %th Percentage
+            %tbody
+              -daily_top_tracks.each do |stat|
+                %tr
+                  %td=stat[0]
+                  %td=stat[1]
+                  %td=stat[2]
+%h3 Overseas horses not included in calculation due to data sample sizes
+%p=link_to('View scorecard',scorecard_index_path)
+%table
+  %tr
+    %td
+      %input#today{name:'date',type:'radio',value:'today',checked:true}
+      %label{for:'today'} Today
+    %td
+      %input#tomorrow{name:'date',type:'radio',value:'tomorrow'}
+      %label{for:'tomorrow'} Tomorrow
+  %tr
+    %th Select track
+    %td
+      %select#tracks
+  %tr#raceRow
+    %th Select race
+    %td
+      %select#races
+%table
+  %tr
+    %td{style:'vertical-align:top'}
+      %table#raceBlock{border:1}
+    %td{style:'vertical-align:top'}
+      %table#topHorses{border:1}
+        %thead
+          %tr
+            %th{colspan:2} Top horses
+          %tr
+            %th Rank
+            %th Horse
+        %tbody
+          %tr
+    %td{style:'vertical-align:top'}
+      %table#placeBlock{border:1}
+        %thead
+          %tr
+            %th Place
+            %th Runner
+            %th Fixed odds
+        %tbody
+    %td{style:'vertical-align:top'}
+      %table#betBlock{border:1}
+        %thead
+          %tr
+            %th Bet
+            %th Numbers
+            %th Value
+        %tbody
+%table#horses{border:1}
+  %thead
+    %tr
+      %th #
+      %th Horse
+      %th Sex
+      %th Weight
+      %th Barrier
+      %th Jockey
+      %th Trainer
+      %th Age
+      %th History
+      -Race.score_fields.each_with_index do |field,index|
+        %th.header_highlighter.toggled{class:"score#{index+1}",'data-active':1}=field
+      %th.header_highlighter Total
+      %th.header_highlighter{'data-reverse': 1} Rank
+      %th Win
+      %th Place
+  %tbody

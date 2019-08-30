@@ -1,0 +1,17 @@
+= form_for @post, html: { multipart: true } do |f|
+  - if @post.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@post.errors.count, "error")} prohibited this post from being saved:"
+      %ul
+        - @post.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.text_area :message, class: 'form-control', rows: 5, placeholder: 'Add your post message here'
+    = f.hidden_field :created_by_id, value: current_user.id
+    = f.file_field :image, class: 'hide'
+  .actions.mt-10
+    %a{onclick: "$(this).closest('form').find('#post_image').click()", class: "pointer"}
+      = image_tag 'picture.png', height: 40, title: "Add image"
+    = f.submit 'Save', class: 'btn btn-secondary'
+    = link_to 'Back', posts_path, class: 'btn btn-outline-secondary'

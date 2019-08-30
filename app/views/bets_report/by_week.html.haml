@@ -1,0 +1,37 @@
+.container.themed-content-special
+  .row
+    .col-lg-12
+      %h3 Bets by week report
+      .row
+        -(1..7).to_a.each_slice(2).to_a.each do |arr|
+          .col-lg-3
+            -arr.each do |i|
+              .form-check
+                %input.form-check-input.byWeekDayControl{type:'checkbox',name:"byWeekDayControl#{i}",id:"byWeekDayControl#{i}",checked: true,'data-id':i}
+                %label{for:"byWeekDayControl#{i}"}=weekday_titles[i-1]
+      %br
+      .row
+        -Bet::CATEGORY_DATA.keys().sort.each_slice(5).to_a.each do |arr|
+          .col-lg-3
+            -arr.each do |key|
+              .form-check
+                %input.form-check-input.byWeekControlCategory{type:'checkbox',name:"byWeekControlCategory#{key}",id:"byWeekControlCategory#{key}",checked: true,'data-id':key}
+                %label{for:"byWeekControlCategory#{key}"}=Bet.category_title(key)
+      .row
+        .col-lg-4
+          .calendar-outer
+            #calendar-container{'data-min':'2017-01-01','data-max':Time.now.strftime('%Y-%m-%d')}
+        .col-lg-8.top-padded
+          #weekGraph
+      %table#weekContentTable.table.table-bordered
+        %thead
+          %tr
+            %th Date
+            %th Week
+            %th Amount
+            %th Reward
+            %th Profit
+            %th Spend total
+            %th Profit total
+        %tbody
+        %tfoot

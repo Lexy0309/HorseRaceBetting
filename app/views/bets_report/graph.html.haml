@@ -1,0 +1,25 @@
+.container.themed-content
+  .row
+    .col-lg-12
+      .card
+        .card-body
+          %h1.card-title Bet payback graph
+          .form-group
+            .row
+              .col-lg-3
+                %select#betControlType.form-control
+                  %option{value: :day} Specify graph...
+                  %option{value: :day} Day of week
+                  %option{value: :month} Month
+                  %option{value: :week} Week
+            %br
+            %h3.card-title Check bet categories
+            .row
+              -Bet::CATEGORY_DATA.keys().sort.each_slice(4).to_a.each do |arr|
+                .col-lg-6
+                  -arr.each do |key|
+                    .form-check
+                      %input.form-check-input.betControlCategory{type:'checkbox',name:"betControlCategory#{key}",id:"betControlCategory#{key}",checked: true,'data-title':key}
+                      %label{for:"betControlCategory#{key}"}=Bet.category_title(key)
+            .col-lg-12.top-padded
+              #betGraph

@@ -1,0 +1,17 @@
+!!!
+%html{lang:'en'}
+  %head
+    %meta{charset:'utf8'}
+    =csrf_meta_tags
+    %meta{name:'viewport',content:'width=device-width, initial-scale=1, shrink-to-fit=no'}
+    %link{rel:'icon',type:'image/png',sizes:'32x32',href:image_path('favicon-32x32.png')}
+    %link{rel:'stylesheet',href:'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'}
+    %link{rel:'stylesheet',href:'/font-awesome.min.css'}
+    %link{rel:'stylesheet',href:'/style.css'}
+    %link{rel:'stylesheet',href:'https://fonts.googleapis.com/css?family=Poppins:400,700,900'}
+    =javascript_include_tag 'application', 'https://js.stripe.com/v2/'
+    =render partial: 'fragments/facebook'
+    %title Betbuilder | We dig the stats
+  %body
+    =render :partial => 'flash_messages', :flash => flash
+    =yield

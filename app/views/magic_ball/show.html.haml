@@ -1,0 +1,29 @@
+.container.themed-content-special
+  .row
+    .col-lg-12
+      %h3="Magic ball results for #{@start_date}"
+      %table#weekContentTable.table.table-bordered
+        %thead
+          %tr
+            %th Frame start
+            %th Frame end
+            %th Duration
+            %th Selected
+            %th Races
+        %tbody
+          -@frames.each do |frame|
+            %tr
+              %td=Time.at(frame.frame_start).in_time_zone(current_zone).strftime('%H:%M')
+              %td=Time.at(frame.frame_end).in_time_zone(current_zone).strftime('%H:%M')
+              %td="#{frame.duration / 60}m"
+              %td{class:frame.is_win ? 'correct_guessed_horse' : 'incorrect_guessed_horse'}
+                -unless frame.winner.blank?
+                  =link_to("#{frame.winner.track.title} R#{frame.winner.race_number}",race_path(frame.race_id))
+                  ="No #{frame.horse_number}"
+              %td
+                -frame.races.each_with_index do |race,index|
+                  -unless index.zero?
+                    =', '
+                  =link_to("#{race.track.title} R#{race.race_number}",race_path(race.id))
+
+

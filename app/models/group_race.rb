@@ -1,0 +1,3 @@
+class GroupRace < ApplicationRecord
+
+end

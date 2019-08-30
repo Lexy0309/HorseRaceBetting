@@ -1,0 +1,125 @@
+.top-bar
+  .container
+    .row
+      .col-md-6.con-info
+        %p
+          Welcome to
+          %b BETBUILDER
+          =':'
+          %a{href:'mailto:info@betbuilder.com.au'} info@betbuilder.com.au
+      .col-md-6
+%header
+  .container
+    %nav.navbar.navbar-expand-lg.navbar-dark
+      %a.navbar-brand{href:'#'}
+        =image_tag('logo5.png')
+      %button.navbar-toggler{type:'button','data-toggle':'collapse','data-target':'#navbarSupportedContent','area-controls':'navbarSupportedContent','aria-expanded':'false','aria-label':'Toggle navigation'}
+        %span.navbar-toggler-icon
+      .collapse.navbar-collapse#navbarSupportedContent
+        %ul.nav.navbar-nav.ml-auto
+          %li.nav-item.active
+            %a.nav-link{href:root_path}
+              Home
+              %span.sr-only (current))
+          %li.nav-item=link_to('About us',welcome_page_public_info_index_path,class:'nav-link active')
+          %li.nav-item.active.dropdown
+            %a#navbarDropdownInfo.nav-link.dropdown-toggle{href:'#',role:'button','data-toggle':'dropdown','aria-haspopup':true,'aria-expanded':false} Info
+            .dropdown-menu{'aria-labelledby':'navbarDropdownInfo'}
+              %a.dropdown-item{href:terms_and_conditions_public_info_index_path} Terms and Conditions
+              %a.dropdown-item{href:privacy_policy_public_info_index_path} Privacy policy
+              %a.dropdown-item{href:dutch_betting_public_info_index_path} Dutch betting
+#carouselExampleSlidesOnly.carousel.slide{'data-ride':'carousel'}
+  .row.sliderz
+    .container
+      .col-md-6
+        .sec-1-left
+          %h2.sec-1-head We've done the form so you don't have to
+          %p.sec-1-det We use proprietary algorithms to sort and rank every race, every day. So you get an objective base rank to measure your own form against. It just so happens these ranking are incredibly effective, with 47% of our top 2 selections going on to win the race.
+          %a.site-btn{href:welcome_page_public_info_index_path} Learn More
+      .col-md-6.tab-div
+        .sec-1-right
+          %ul.nav.nav-tabs#myTab{role:'tablist'}
+            %li.nav-item
+              %a.nav-link.active#home-tab{'data-toggle':'tab',href:'#home',role:'tab','aria-controls':'home','areia-selected':'true'} Log-in
+            %li.nav-item
+              %a.nav-link#profile-tab{'data-toggle':'tab',href:'#profile',role:'tab','aria-controls':'profile','areia-selected':'false'} Sign-up
+          #myTabContent.tab-content
+            .tab-pane.fade.show.active#home{role:'tabpanel','aria-labelledby':'home-tab'}
+              %h3 LOGIN
+              =form_for(resource, as: resource_name, url: session_path(resource_name), remote: true, authenticity_token: true, html: { id: 'login_form', class: 'login_form' }) do |f|
+                .sign-name
+                  =f.email_field :email, class: 'form-control', placeholder: 'Email',autocomplete: :off, id: 'email'
+                .sign-pass
+                  =f.password_field :password, class: 'form-control', placeholder: 'Password',autocomplete: :off, id: 'password'
+                %div
+                  = f.submit 'Login', class: 'log-btn'
+                  %a.btn.sign-btn{type:'button',href: '/users/auth/facebook'}
+                    %span.fa.fa-facebook{'aria-hidden':'true'}
+                    Continue with Facebook
+            .tab-pane.fade#profile{role:'tabpanel','arialabelledby':'profile-tab'}
+              %h3 SIGNUP
+              =form_for(resource,as: resource_name, url: registration_path(resource_name), html: { class: 'signup_form'}, remote: true) do |f|
+                = devise_error_messages!
+                .sign-name
+                  = f.email_field :email, class: 'form-control', placeholder: 'Email',autocomplete: :off
+                .sign-pass
+                  = f.password_field :password, class: 'form-control', placeholder: 'Password',autocomplete: :off
+                .sign-pass
+                  = f.password_field :password_confirmation, class: 'form-control', placeholder: 'Re-type password',autocomplete: :off
+                %div
+                  = f.submit 'Signup', class: 'log-btn'
+                  %a.btn.sign-btn{type:'button',href: '/users/auth/facebook'}
+                    %span.fa.fa-facebook{'aria-hidden':'true'}
+                    Continue with Facebook
+  .carousel-inner
+    -4.times do |i|
+      .carousel-item{class:i.zero? ? 'active' : ''}
+        =image_tag("slide-00#{i+1}.jpg",class:'d-block w-100')
+.row
+  .col-md-2
+  .col-md-8.divi-div
+    %img{src:image_path('divi.png'),width:'100%',alt:'divider'}
+  .col-md-2
+%section.sec-3
+  .container
+    %h2.plan-head PLANS
+    -@plans.each do |plan|
+      .col-md-4
+        .plan-sec
+          -if plan.payment_gateway_plan_identifier=='gorillas_tier_2'
+            %h3 COMING SOON
+          %h4=plan.name
+          %p
+            %span.price= humanized_money_with_symbol(plan.price)
+            %br
+            ='/'
+            ="#{plan.interval} #{plan.interval_count}"
+          =plan.description.html_safe
+          .plan-pic
+            %img{src:image_path("#{plan.payment_gateway_plan_identifier}.png"),width:'40%'}
+          .plan-link
+            %a.site-btn{href:'#email'} Subscribe
+%footer
+  .container
+    .row
+      .col-md-4.widget.foot-ab
+        =image_tag('logo5.png')
+        %h4 About Us
+        %p We do the form everyday without the consideration of price, so you get an objective base to measure your form Betbuilder has been successfully ranking races since March 2018 with 47% of winners selected in our top 2 ranked horses, Australia wide.
+      .col-md-4.widget
+      .col-md-4.widget
+        %h4 Follow Us
+        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fwww.Betbuilder.com.au%2F&tabs=timeline&width=340&height=230&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340" height="230" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+.bot-footer.row
+  .container
+    .col-md-6
+      %p.copyright
+        &copy; 2019 -
+        %b Bet Builder
+        , All rights reserved.
+    .col-md-6
+      %ul.soc-icons.float-right
+        %li
+          %a{href:'https://facebook.com/groups/1723251237804456'}
+            %i.fa.fa-facebook
+%script{src:'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'}

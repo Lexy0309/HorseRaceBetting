@@ -1,0 +1,31 @@
+.container.centered-row
+  .row
+    .col-md-3
+    .col-md-6.themed-content{style:'padding-left:0px;padding-right:0px;'}
+      .logo_outer
+        %img{src:image_path('logo5.png'),style:'height:100%;width:100%;'}
+      .card
+        .card-body
+          %a{href:'/users/auth/facebook'}
+            %img{src:image_path('fb_login.png'),style:'width:100%;padding:20px;'}
+          %h1.card-title{style:'text-align:center;'} OR
+          %h3{style:'text-align:center;'} Sign in with an account
+          =form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            .form-group
+              .field
+                =f.email_field :email, autofocus: true, placeholder: 'Email address', class: 'form-control'
+            .form-group
+              .field
+                =f.password_field :password, autocomplete: 'off', placeholder: 'Password', class: 'form-control'
+            -if devise_mapping.rememberable?
+              .field
+                =f.check_box :remember_me
+                =f.label :remember_me
+            %p
+              By entering Betbuilder I accept
+              %a{href:terms_and_conditions_public_info_index_path,target:'_blank'} Terms and Conditions
+            .actions
+              =f.submit 'Sign in', class: 'btn btn-secondary', style: 'width: 100%; font-size: 22px; font-weight: bold;'
+          %p{style:'text-align: center;'} No Account yet?
+          %a.btn.btn-danger{href: new_user_registration_path ,style: 'width: 100%; font-size: 22px; font-weight: bold; color: white;'} Sign Up Here
+      %p{style: 'text-align: center;'} Restricted to 18+ only. IS GAMBLING A PROBLEM FOR YOU? CALL GAMBLING HELP ON 180 0858 858 OR VISIT WWW.GAMBLINGHELPONLINE.ORG.AU

@@ -1,0 +1,27 @@
+.container.themed-content
+  .row
+    .col-lg-12
+      %h1
+        Posts
+        %right
+          =link_to "Add", new_post_path, class: 'btn btn-secondary pull-right mt-10'
+      %table.table.table-bordered.table-responsive
+        %thead
+          %tr
+            %th Message
+            %th Created by
+            %th Comments
+            %th Created at
+            %th
+            %th
+            %th
+        %tbody
+          -@posts.each do |post|
+            %tr
+              %td= truncate(post.message, length: 50, omission: '...')
+              %td= post.created_by.first_name.to_s + " " + post.created_by.last_name.to_s if post.created_by.present?
+              %td= post.post_comments.count
+              %td{'data-sort': post.created_at.strftime('%Y/%m/%d')}=post.created_at.strftime('%d/%m/%Y')
+              %td= link_to 'Show', post
+              %td= link_to 'Edit', edit_post_path(post)
+              %td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure, you want to remove this post?' }

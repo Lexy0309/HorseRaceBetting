@@ -1,0 +1,27 @@
+.container.themed-content-special
+  .row
+    .col-lg-12
+      %h1 Tips efficiency
+      %table.table.table-bordered
+        %thead
+          %tr
+            %th{rowspan:2} Start date
+            %th{rowspan:2} End date
+            %th{rowspan:2} Total
+            %th{colspan:3} Racenet
+            %th{colspan:3} Tab
+            %th{colspan:3} Betbuilder
+          %tr
+            %th 1st->1st
+            %th 2nd->1st
+            %th 1st->1..4
+            %th 1st->1st
+            %th 2nd->1st
+            %th 1st->1..4
+            %th 1st->1st
+            %th 2nd->1st
+            %th 1st->1..4
+        %tbody
+          %tr
+            -@result.each do |value|
+              %td=value

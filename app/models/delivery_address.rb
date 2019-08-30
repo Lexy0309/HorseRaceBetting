@@ -1,0 +1,2 @@
+class DeliveryAddress < Address
+end

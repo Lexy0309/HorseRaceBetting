@@ -1,0 +1,16 @@
+= form_for @race_condition_detail do |f|
+  - if @race_condition_detail.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@race_condition_detail.errors.count, "error")} prohibited this race_condition_detail from being saved:"
+      %ul
+        - @race_condition_detail.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :rank
+    = f.number_field :rank
+  .actions
+    = f.submit 'Save'

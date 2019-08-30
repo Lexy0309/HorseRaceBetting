@@ -1,0 +1,2 @@
+class ScoreWay < ApplicationRecord
+end
